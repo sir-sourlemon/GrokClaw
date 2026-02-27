@@ -15,6 +15,6 @@ The simplest, most fun personal AI agent framework. Powered by Grok 4.20 + inter
 ## Quick Start
 ```bash
 pip install openai
-git clone https://github.com/YOURUSERNAME/grokclaw.git
+git clone https://github.com/sir-sourlemon/GrokClaw.git
 cd grokclaw
 python grokclaw.py
