@@ -1,0 +1,9 @@
+version: '3.8'
+services:
+  grokclaw:
+    build: .
+    env_file:
+      - .env
+    volumes:
+      - ./grokclaw_output:/app/grokclaw_output
+    restart: unless-stopped
