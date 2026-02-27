@@ -21,7 +21,7 @@ print("🦞 GrokClaw v0.1 Lemon Edition online — powered by Grok 4.20 + full s
 print("Type any command below. 'exit' to quit.\n")
 
 def run_squad(command):
-    print(f"[{datetime.now().strftime('%H:%M:%S')}] GrokClaw received: {command}")
+    print(f"[{datetime.now().strftime('%H:%M:%S')}] 🦞 GrokClaw received: {command}")
     print("   → Spinning up the squad...\n")
     
     print("Harper: 🔍 Pulling real-time X/web data...")
@@ -48,7 +48,7 @@ FINAL ARTIFACT: [complete polished response]
 """
     
     response = client.chat.completions.create(
-        model="grok-4",  # change to "grok-4-1-fast" for cheaper/speed
+        model="grok-4",
         messages=[{"role": "user", "content": squad_prompt}],
         temperature=0.8,
         max_tokens=4096
@@ -61,13 +61,13 @@ FINAL ARTIFACT: [complete polished response]
     with open(filename, "w") as f:
         f.write(f"# GrokClaw v0.1 — {command}\n\n{result}")
     
-    print("✅ GrokClaw complete! Artifact saved →", filename)
+    print("✅ 🦞 GrokClaw complete! Artifact saved →", filename)
     print("\n" + "="*60)
     print(result)
     print("="*60 + "\n")
 
 while True:
-    cmd = input("GrokClaw> ")
+    cmd = input("🦞 GrokClaw> ")
     if cmd.lower() in ["exit", "quit", "stop", "bye"]:
         print("🦞 GrokClaw powering down. See you soon, boss! 🍋")
         break
