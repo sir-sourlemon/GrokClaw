@@ -69,7 +69,7 @@ if TELEGRAM_TOKEN:
     async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await update.message.reply_text("🦞 Squad spinning up...")
         result = run_squad(update.message.text)
-        await update.message.reply_text(result[:4000])  # safe for Telegram
+        await update.message.reply_text(result[:4000])
     
     print("📱 Telegram bot mode enabled")
     app = Application.builder().token(TELEGRAM_TOKEN).build()
