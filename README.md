@@ -11,10 +11,17 @@ The simplest, most fun personal AI agent framework. Powered by Grok 4.20 + inter
 - Full squad simulation printed live
 - Artifacts saved to `./grokclaw_output/`
 - Zero-config terminal loop
-
+## Features (v0.2)
+- One-line Docker install
+- Full Telegram bot (DM from phone)
+- Terminal fallback
 ## Quick Start
 ```bash
 pip install openai
 git clone https://github.com/sir-sourlemon/GrokClaw.git
 cd grokclaw
 python grokclaw.py
+## Features (v0.1)
+- One-line Docker install
+- Full Telegram bot (DM from phone)
+- Terminal fallback
