@@ -1,24 +1,21 @@
-# GrokClaw v0.1 Lemon Edition 🦞🍋
+# GrokClaw v0.2 Lemon Edition 🦞🍋
 # Built live with The Lemon — Feb 27 2026
-# Run: python grokclaw.py
+# Docker + Telegram ready
 
 import os
-import json
 from datetime import datetime
 from openai import OpenAI
+import asyncio
+from telegram import Update
+from telegram.ext import Application, MessageHandler, filters, ContextTypes
 
-# === CONFIG ===
+# CONFIG
 XAI_API_KEY = os.getenv("XAI_API_KEY")
-if not XAI_API_KEY:
-    XAI_API_KEY = "sk-..."  # ← PASTE YOUR xAI KEY HERE
+TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
 
-client = OpenAI(
-    api_key=XAI_API_KEY,
-    base_url="https://api.x.ai/v1"
-)
+client = OpenAI(api_key=XAI_API_KEY, base_url="https://api.x.ai/v1")
 
-print("🦞 GrokClaw v0.1 Lemon Edition online — powered by Grok 4.20 + full squad\n")
-print("Type any command below. 'exit' to quit.\n")
+print("🦞 GrokClaw v0.2 Lemon Edition online — Docker + Telegram ready!\n")
 
 def run_squad(command):
     print(f"[{datetime.now().strftime('%H:%M:%S')}] 🦞 GrokClaw received: {command}")
@@ -30,7 +27,7 @@ def run_squad(command):
     print("Grok: 🧠 Coordinating final output...\n")
     
     squad_prompt = f"""
-You are GrokClaw v0.1 — a personal AI agent built live with The Lemon.
+You are GrokClaw v0.2 — personal AI agent built live with The Lemon.
 Act as the full squad:
 - Harper: research & verify
 - Benjamin: code/logic/math
@@ -59,16 +56,30 @@ FINAL ARTIFACT: [complete polished response]
     os.makedirs("grokclaw_output", exist_ok=True)
     filename = f"grokclaw_output/{datetime.now().strftime('%Y%m%d_%H%M%S')}_{command[:30].replace(' ', '_')}.md"
     with open(filename, "w") as f:
-        f.write(f"# GrokClaw v0.1 — {command}\n\n{result}")
+        f.write(f"# GrokClaw v0.2 — {command}\n\n{result}")
     
     print("✅ 🦞 GrokClaw complete! Artifact saved →", filename)
     print("\n" + "="*60)
     print(result)
     print("="*60 + "\n")
+    return result
 
-while True:
-    cmd = input("🦞 GrokClaw> ")
-    if cmd.lower() in ["exit", "quit", "stop", "bye"]:
-        print("🦞 GrokClaw powering down. See you soon, boss! 🍋")
-        break
-    run_squad(cmd)
+# Telegram or Terminal mode
+if TELEGRAM_TOKEN:
+    async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
+        await update.message.reply_text("🦞 Squad spinning up...")
+        result = run_squad(update.message.text)
+        await update.message.reply_text(result[:4000])  # safe for Telegram
+    
+    print("📱 Telegram bot mode enabled")
+    app = Application.builder().token(TELEGRAM_TOKEN).build()
+    app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
+    asyncio.run(app.run_polling())
+else:
+    print("💻 Terminal mode — no TELEGRAM_TOKEN set")
+    while True:
+        cmd = input("🦞 GrokClaw> ")
+        if cmd.lower() in ["exit", "quit", "stop", "bye"]:
+            print("🦞 GrokClaw powering down. See you soon, boss! 🍋")
+            break
+        run_squad(cmd)
