@@ -21,7 +21,3 @@ pip install openai
 git clone https://github.com/sir-sourlemon/GrokClaw.git
 cd grokclaw
 python grokclaw.py
-## Features (v0.1)
-- One-line Docker install
-- Full Telegram bot (DM from phone)
-- Terminal fallback
